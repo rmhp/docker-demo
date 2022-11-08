@@ -12,6 +12,7 @@ node {
      }
    }
    stage('docker build/push') {
+     echo "specify docker tool"
      docker.withTool('docker') {
         withDockerServer([credentialsId: "ubdockera1", uri: "tcp://ubdockera1.mhp.lan:2376"]) { 
            docker.withRegistry('https://index.docker.io/v2/', 'docker-devmhp') {
