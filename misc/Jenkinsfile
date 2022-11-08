@@ -12,6 +12,7 @@ node {
      }
    }
    stage('docker build/push') {
+     tool name: 'docker', type: 'dockerTool'
      docker.withRegistry('https://index.docker.io/v2/', 'docker-devmhp') {
        def app = docker.build("wardviaene/docker-nodejs-demo:${commit_id}", '.').push()
      }
