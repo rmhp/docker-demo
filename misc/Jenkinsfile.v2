@@ -6,6 +6,7 @@ node {
      commit_id = readFile('.git/commit-id').trim()
    }
    stage('test') {
+      echo 'Stage: test'
       docker.withTool('docker') {
          withDockerServer([credentialsId: "ubdockera1", uri: "tcp://ubdockera1.mhp.lan:2376"]) {
             def myTestContainer = docker.image('node:4.6')
@@ -18,6 +19,7 @@ node {
       }
    }
    stage('test with a DB') {
+      echo 'Stage: test with a DB'
       docker.withTool('docker') {
          withDockerServer([credentialsId: "ubdockera1", uri: "tcp://ubdockera1.mhp.lan:2376"]) {
             def mysql = docker.image('mysql').run("-e MYSQL_ALLOW_EMPTY_PASSWORD=yes") 
@@ -32,6 +34,7 @@ node {
       }
    }                                     
    stage('docker build/push') { 
+      echo 'Stage: docker build/push'
       docker.withTool('docker') {
          withDockerServer([credentialsId: "ubdockera1", uri: "tcp://ubdockera1.mhp.lan:2376"]) {
             docker.withRegistry('https://index.docker.io/v2/', 'dockerhub') {
