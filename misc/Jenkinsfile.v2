@@ -7,8 +7,8 @@ node {
    }
    stage('test') {
       echo 'Stage: test'
-      echo `whoami`
-      echo `groups `whoami``
+      sh 'whoami'
+      sh 'groups `whoami`'
       docker.withTool('docker') {
          withDockerServer([credentialsId: "ubdockera1", uri: "tcp://ubdockera1.mhp.lan:2376"]) {
             def myTestContainer = docker.image('node:4.6')
