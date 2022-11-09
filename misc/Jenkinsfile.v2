@@ -7,17 +7,13 @@ node {
    }
    stage('test') {
       echo 'Stage: test'
-      sh 'whoami'
-      sh 'groups `whoami`'
       docker.withTool('docker') {
          withDockerServer([credentialsId: "ubdockera1", uri: "tcp://ubdockera1.mhp.lan:2376"]) {
-            docker.withRegistry('https://index.docker.io/v2/', 'docker-devmhp') {
             def myTestContainer = docker.image('node:4.6')
             myTestContainer.pull()
             myTestContainer.inside {
                sh 'npm install --only=dev'
                sh 'npm test'
-            }
             }
          }
       }
